@@ -38,13 +38,16 @@ function HolographicLaptop() {
 
 // Floating code window
 function CodeWindow({ position, rotation }: { position: [number, number, number]; rotation: [number, number, number] }) {
-  const ref = useRef<THREE.Mesh>(null!);
+  const ref = useRef<THREE.Group>(null!);
   const time = useRef(0);
 
   useFrame(({ clock }) => {
     time.current = clock.getElapsedTime();
-    ref.current.position.y += Math.sin(time.current * 0.8 + position[0]) * 0.01;
-    ref.current.rotation.z += 0.002;
+
+    if (ref.current) {
+      ref.current.position.y += Math.sin(time.current * 0.8 + position[0]) * 0.01;
+      ref.current.rotation.z += 0.002;
+    }
   });
 
   return (
